@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+    <h4>Search for weather</h4>
+
+    <form>
+        <div id="one">
+            <label for="">Select Location</label>
+            <input type="text" id="city" >
+        </div>
+        <div id="two">
+            <button class="btn btn-primary" type="submit" id="get">Display</button>
+        </div>
+    </form>
+    <div id="data">
+
+    </div>
+
+
+
+    <script>
+        // $(document).ready(function () {
+        //     $("#getWeatherForcast").click(function () {
+        //         var city = $("#city").val();
+        //         var key = 'e81f8707fca7fecb8e3d9523fadf6a17';
+
+        //         $.ajax({
+        //             url: 'api.openweathermap.org/data/2.5/weather?q={London}&appid={e81f8707fca7fecb8e3d9523fadf6a17}',
+        //             datatype: 'json',
+        //             type: 'GET',
+        //             data: { q: city, appid: key, units: 'metric' },
+        //             success: function (data) {
+        //                 var wf = "";
+        //                 $.each(data.weather, function (index, val) {
+        //                     wf += '_<p><b>' + data.name + "<b/><img src=" + val.icon + ".png></p>" +
+        //                         data.main.temp + '&deg;C' + '|' + val.main + "," + val.description
+        //                 });
+        //                 $("#showWeatherForcast").html(wf)
+        //             }
+        //         })
+        //     })
+        // })
+
+        const userInput = document.getElementById("city");
+        const output = document.getElementById('get');
+        let weather = document.getElementById('data');
+        output.addEventListener('click', function (event) {
+            event.preventDefault();
+            console.log(userInput.value);
+            var city = userInput.value;
+            fetch(`http://api.openweathermap.org/data/2.5/weather?q=${city}&appid=e81f8707fca7fecb8e3d9523fadf6a17`).then(res => res.json()).then(data => {
+                weather.innerHTML = `<h2>${data.weather[0].description}</h2>`;
+            }
+            )
+        });
+
+    </script>
+</body>
+
+</html>
